@@ -10,20 +10,19 @@ padding-top:70px;
 transition:background-color 0.3s ease;
 }
 
-/* The Taskbar Container */
 .taskbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 60px;
-    background-color: brown; /* Primary theme color */
+    background-color: brown; 
     display: flex;
-    justify-content: space-between; /* Puts Title on left, Theme on right */
+    justify-content: space-between; 
     align-items: center;
     padding: 0 20px;
     box-sizing: border-box;
-    z-index: 10002; /* Highest priority */
+    z-index: 10002; 
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
@@ -38,7 +37,7 @@ transition:background-color 0.3s ease;
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255, 255, 255, 0.2); /* Transparent white */
+    background: rgba(255, 255, 255, 0.2); 
     padding: 5px 15px;
     border-radius: 20px;
     color: white;
@@ -60,20 +59,17 @@ transition:background-color 0.3s ease;
 }
 .head {
     color: brown;
-    /* Reduced the minimum size slightly so 'Website' fits on older phones */
     font-size: clamp(30px, 8vw, 100px); 
     text-align: center;
     margin-top: 40px;
     padding: 0 10px;
     line-height: 1.2;
-    /* This ensures words don't break in half awkwardly */
     word-break: keep-all; 
 }
 
 
 @media (max-width: 500px) {
     .head {
-        /* On small screens, we force the heading to stack neatly */
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -91,7 +87,7 @@ height:auto;
 
 @media (max-width: 768px) {
     .taskbar-title { font-size: 16px; }
-    .theme-box span { display: none; } /* Hide "Change Theme" text on small phones */
+    .theme-box span { display: none; } 
 }
 
 body.dark-mode {
@@ -120,7 +116,7 @@ body.milk-mode .about-section {
 .about-section h1 {
     margin-top: 0;
     font-size: 45px;
-    text-decoration: underline wavy lightpink; /* Fun wavy underline */
+    text-decoration: underline wavy lightpink; 
 }
 
 .about-section {
@@ -144,26 +140,28 @@ body.milk-mode .about-section {
 }
 
 .gallery-container {
-    width: 80%;
-    margin: 40px auto;
+    width: 95%; 
+    max-width: 1200px;
+    margin: 20px auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-gap: 20px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-gap: 10px;
+    padding: 10px;
+    box-sizing: border-box; 
 }
 
 .gallery-item {
     border: 3px solid brown;
     border-radius: 20px;
-    width: 100%;
-    height: 300px; 
-    object-fit: cover; 
-    transition: transform 0.3s ease; 
+    width: 100%;           
+    height: 250px;         
+    object-fit: cover;     
+    transition: transform 0.3s ease;
     cursor: pointer;
 }
 
 .gallery-item:hover {
-    transform: scale(1.05); /* Zooms in slightly when you hover */
+    transform: scale(1.05); 
     box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
 }
 
@@ -173,9 +171,18 @@ body.milk-mode .about-section {
     font-size: 40px;
     margin-top: 50px;
 }
+@media (min-width: 768px) {
+    .gallery-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-gap: 20px;
+    }
+    .gallery-item {
+        height: 300px;
+    }
+}
 .arcade-box {
-    background: rgba(255, 255, 255, 0.4); /* Transparent white */
-    backdrop-filter: blur(10px); /* Blurs the pink background behind it */
+    background: rgba(255, 255, 255, 0.4); 
+    backdrop-filter: blur(10px); 
     border: 4px solid white;
     border-radius: 30px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.1);
@@ -188,8 +195,8 @@ body.milk-mode .about-section {
 }
 
 .status-screen {
-    background-color: #2b2b2b; /* Dark "monitor" screen */
-    color: #00ff00; /* Matrix green text */
+    background-color: #2b2b2b; 
+    color: #00ff00; 
     padding: 15px;
     border-radius: 10px;
     font-family: 'Courier New', monospace;
@@ -208,7 +215,7 @@ body.milk-mode .about-section {
     font-weight: bold;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 8px 0 #5d0000; /* 3D button effect */
+    box-shadow: 0 8px 0 #5d0000; 
     transition: all 0.1s;
 }
 
@@ -235,7 +242,7 @@ footer {
     padding: 30px;
     margin-top: 50px;
     font-family: Arial, sans-serif;
-    border-radius: 50px 50px 0 0; /* Rounds the top corners */
+    border-radius: 50px 50px 0 0; 
 }
 
 .footer-text {
@@ -260,28 +267,25 @@ footer {
     font-size: 80px;
     cursor: pointer;
     user-select: none;
-    z-index: 9999; /* Ensures they are above everything */
+    z-index: 9999; 
     animation: fall linear forwards;
 }
 
-/* 2. Add the animation logic */
 @keyframes fall {
     from {
         transform: translateY(0);
     }
     to {
-        transform: translateY(110vh); /* Falls past the bottom of the screen */
+        transform: translateY(110vh); 
     }
 }
 
-/* 3. Add the hover effect for better gameplay */
 .falling-milk:hover {
     filter: drop-shadow(0 0 10px gold);
     transform: scale(1.2);
     transition: transform 0.1s;
 }
 
-/* 4. Fix for your happiness bar inside the arcade box */
 #happiness-bar-container {
     width: 100%;
     height: 20px;
@@ -293,26 +297,23 @@ footer {
 
 #happiness-fill {
     height: 100%;
-    width: 20%; /* Initial happiness */
+    width: 20%; 
     background-color: #ffc107;
     transition: width 0.3s ease;
 }
 
 @media (max-width: 768px) {
-    
-    /* Make the main image fit the screen */
+
     .image1 {
         width: 90%;
-        height: auto; /* Keeps the image from looking squished */
+        height: auto;
     }
 
-    /* Make the About section and Arcade box take up more screen width */
     .about-section, .arcade-box {
         width: 90%;
         padding: 20px;
     }
 
-    /* Adjust font sizes so they aren't too big on mobile */
     .about-section h1 {
         font-size: 30px;
     }
@@ -321,12 +322,10 @@ footer {
         font-size: 18px;
     }
 
-    /* Make falling items a bit smaller for small screens */
     .falling-milk {
         font-size: 50px;
     }
 
-    /* Ensure the gallery only shows 1 or 2 columns */
     .gallery-container {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         grid-gap: 10px;
@@ -335,7 +334,7 @@ footer {
 }
 @media (max-width: 480px) {
     .theme-label {
-        display: none; /* Hides the word "Theme:" on tiny screens */
+        display: none; 
     }
     .taskbar {
         padding: 0 10px;
