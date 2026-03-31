@@ -1,0 +1,518 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+
+body{
+ background-color:lightpink;
+ margin:0;
+padding-top:70px;
+transition:background-color 0.3s ease;
+}
+
+/* The Taskbar Container */
+.taskbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: brown; /* Primary theme color */
+    display: flex;
+    justify-content: space-between; /* Puts Title on left, Theme on right */
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 10002; /* Highest priority */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.taskbar-title {
+    color: lightpink;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: bold;
+    font-size: clamp(14px,4vw,20px);
+}
+
+.theme-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.2); /* Transparent white */
+    padding: 5px 15px;
+    border-radius: 20px;
+    color: white;
+    font-family: sans-serif;
+    font-size: 12px;
+}
+
+.theme-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid white;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.theme-dot:hover {
+    transform: scale(1.2);
+}
+.head {
+    color: brown;
+    /* Reduced the minimum size slightly so 'Website' fits on older phones */
+    font-size: clamp(30px, 8vw, 100px); 
+    text-align: center;
+    margin-top: 40px;
+    padding: 0 10px;
+    line-height: 1.2;
+    /* This ensures words don't break in half awkwardly */
+    word-break: keep-all; 
+}
+
+
+@media (max-width: 500px) {
+    .head {
+        /* On small screens, we force the heading to stack neatly */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+    
+}
+.image1{
+ border:4px solid brown;
+border-radius:50px;
+width:90%;
+max-width:500px;
+height:auto;
+}
+
+@media (max-width: 768px) {
+    .taskbar-title { font-size: 16px; }
+    .theme-box span { display: none; } /* Hide "Change Theme" text on small phones */
+}
+
+body.dark-mode {
+    background-color: #1a1a1a !important;
+    color: #f0f0f0;
+}
+body.dark-mode .about-section, 
+body.dark-mode .arcade-box {
+    background-color: #2b2b2b;
+    color: white;
+    border-color: #ffc0cb;
+}
+
+body.dark-mode .head, 
+body.dark-mode .gallery-title {
+    color: #ffc0cb;
+}
+
+body.milk-mode {
+    background-color: #fff3e0 !important;
+}
+body.milk-mode .about-section {
+    border-color: #ff9800;
+}
+
+.about-section h1 {
+    margin-top: 0;
+    font-size: 45px;
+    text-decoration: underline wavy lightpink; /* Fun wavy underline */
+}
+
+.about-section {
+            background-color: white;
+            border: 5px solid brown; 
+            border-radius: 40px;
+            box-shadow: 10px 10px 0px rgba(165, 42, 42, 0.2);
+            width: 90%;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+            color: #5d4037;
+            text-align: center;
+        }
+.about-section p {
+    font-size: clamp(18px, 4vw, 22px); 
+    margin-bottom: 15px;
+    word-wrap: break-word; 
+}
+
+.gallery-container {
+    width: 80%;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 20px;
+    padding: 20px;
+}
+
+.gallery-item {
+    border: 3px solid brown;
+    border-radius: 20px;
+    width: 100%;
+    height: 300px; 
+    object-fit: cover; 
+    transition: transform 0.3s ease; 
+    cursor: pointer;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05); /* Zooms in slightly when you hover */
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+}
+
+.gallery-title {
+    text-align: center;
+    color: brown;
+    font-size: 40px;
+    margin-top: 50px;
+}
+.arcade-box {
+    background: rgba(255, 255, 255, 0.4); /* Transparent white */
+    backdrop-filter: blur(10px); /* Blurs the pink background behind it */
+    border: 4px solid white;
+    border-radius: 30px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    width: 80%;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.status-screen {
+    background-color: #2b2b2b; /* Dark "monitor" screen */
+    color: #00ff00; /* Matrix green text */
+    padding: 15px;
+    border-radius: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    margin-bottom: 20px;
+    min-height: 40px;
+    border: 3px solid #444;
+}
+
+.game-btn {
+    background: linear-gradient(145deg, #a52a2a, #800000);
+    color: white;
+    border: none;
+    padding: 20px 40px;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 8px 0 #5d0000; /* 3D button effect */
+    transition: all 0.1s;
+}
+
+.game-btn:active {
+    box-shadow: 0 2px 0 #5d0000;
+    transform: translateY(6px);
+}
+
+.score-badge {
+    display: inline-block;
+    background: brown;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+
+footer {
+    background-color: brown;
+    color: lightpink;
+    text-align: center;
+    padding: 30px;
+    margin-top: 50px;
+    font-family: Arial, sans-serif;
+    border-radius: 50px 50px 0 0; /* Rounds the top corners */
+}
+
+.footer-text {
+    font-size: 18px;
+    margin: 5px;
+}
+
+.footer-heart {
+    color: white;
+    animation: heartbeat 1.5s infinite;
+    display: inline-block;
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+.falling-milk {
+    position: fixed;
+    top: -50px;
+    font-size: 80px;
+    cursor: pointer;
+    user-select: none;
+    z-index: 9999; /* Ensures they are above everything */
+    animation: fall linear forwards;
+}
+
+/* 2. Add the animation logic */
+@keyframes fall {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(110vh); /* Falls past the bottom of the screen */
+    }
+}
+
+/* 3. Add the hover effect for better gameplay */
+.falling-milk:hover {
+    filter: drop-shadow(0 0 10px gold);
+    transform: scale(1.2);
+    transition: transform 0.1s;
+}
+
+/* 4. Fix for your happiness bar inside the arcade box */
+#happiness-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    margin: 15px 0;
+    overflow: hidden;
+}
+
+#happiness-fill {
+    height: 100%;
+    width: 20%; /* Initial happiness */
+    background-color: #ffc107;
+    transition: width 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    
+    /* Make the main image fit the screen */
+    .image1 {
+        width: 90%;
+        height: auto; /* Keeps the image from looking squished */
+    }
+
+    /* Make the About section and Arcade box take up more screen width */
+    .about-section, .arcade-box {
+        width: 90%;
+        padding: 20px;
+    }
+
+    /* Adjust font sizes so they aren't too big on mobile */
+    .about-section h1 {
+        font-size: 30px;
+    }
+
+    .about-section p {
+        font-size: 18px;
+    }
+
+    /* Make falling items a bit smaller for small screens */
+    .falling-milk {
+        font-size: 50px;
+    }
+
+    /* Ensure the gallery only shows 1 or 2 columns */
+    .gallery-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-gap: 10px;
+        width: 95%;
+    }
+}
+@media (max-width: 480px) {
+    .theme-label {
+        display: none; /* Hides the word "Theme:" on tiny screens */
+    }
+    .taskbar {
+        padding: 0 10px;
+    }
+}
+</style>
+
+<script>
+function changeMood() {
+    const moods = [
+        "Nope! He just stole a sock! 🧦",
+        "He's acting good for milk... 🥛",
+        "Error: Too much badmashi detected! 🚫",
+        "He's sleeping, so technically he's an angel. 😴"
+    ];
+    const randomMood = moods[Math.floor(Math.random() * moods.length)];
+    document.getElementById('mood-text').innerText = randomMood;
+}
+function bark() {
+    alert("WOOF! 🐾 (Leo says: Where is my milk?!)");
+}
+let score = 0;
+let happiness = 20;
+
+function updateStatus(text) {
+    document.getElementById('status-msg').innerText = "> " + text;
+}
+
+function startMilkRain() {
+    updateStatus("LEO IS HUNGRY! CATCH THE TREATS!");
+    
+    const interval = setInterval(() => {
+        const items = ['🥛', '🧀', '🍼', '🍦'];
+        const item = document.createElement('div');
+        item.className = 'falling-milk';
+        item.innerText = items[Math.floor(Math.random() * items.length)];
+        item.style.left = Math.random() * 80 + 'vw';
+        item.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        
+        item.onclick = function() {
+            score++;
+            happiness += 8;
+            document.getElementById('score-val').innerText = score;
+            document.getElementById('happiness-fill').style.width = Math.min(happiness, 100) + '%';
+            
+            // Random feedback messages
+            const feedbacks = ["YUMMY!", "MORE MILK!", "CHEESE PLEASE!", "GOOD CATCH!"];
+            updateStatus(feedbacks[Math.floor(Math.random() * feedbacks.length)]);
+            
+            this.remove();
+
+            if(happiness >= 100) {
+                updateStatus("SUCCESS: LEO IS FULL AND SLEEPING!");
+                clearInterval(interval);
+            }
+        };
+
+        document.body.appendChild(item);
+        setTimeout(() => item.remove(), 4000);
+    }, 600);
+
+    setTimeout(() => { 
+        clearInterval(interval);
+        if(happiness < 100) updateStatus("GAME OVER: LEO IS STILL NAUGHTY!");
+    }, 15000);
+}
+function setTheme(themeName) {
+    // Remove all theme classes first
+    document.body.classList.remove('dark-mode', 'milk-mode');
+    
+    if (themeName === 'dark') {
+        document.body.classList.add('dark-mode');
+        updateStatus("DARK MODE ACTIVATED: Leo is a ninja! 🥷");
+    } else if (themeName === 'milk') {
+        document.body.classList.add('milk-mode');
+        updateStatus("MILK THEME: Extra dairy power! 🥛");
+    } else {
+        updateStatus("ORIGINAL PINK: So aesthetic! ✨");
+    }
+}
+</script>
+</head>
+<body>
+
+<nav class="taskbar">
+    <div class="taskbar-title">🐾 Leo's Portal</div>
+    <div class="theme-box">
+        <span>Change Theme:</span>
+        <button class="theme-dot" onclick="setTheme('pink')" style="background: #ffc0cb;"></button>
+        <button class="theme-dot" onclick="setTheme('dark')" style="background: #2b2b2b;"></button>
+        <button class="theme-dot" onclick="setTheme('milk')" style="background: #fff3e0;"></button>
+    </div>
+</nav>
+
+<h1 class="head">
+    <span>🐾Leo's Website🐾</span>
+</h1>
+
+<div style="text-align:center">
+<img src="leo.jpeg" class="image1" onclick="bark()" style="cursor: pointer;">
+</div>
+
+<br><br>
+<div class="about-section">
+    <h1>About Leo 🐾</h1> 
+    <p>
+        Hi there! I'm <b>Leo</b>, and I'm basically the boss of this house. 👑
+    </p>
+    <p>
+        If it’s made of <b>milk</b>, I'm there! Cheese, yogurt, or a fresh bowl of milk—I’m a total dairy-loving legend. 🥛🧀
+    </p>
+    <p style="font-style: italic; color: brown;">
+        "Hamesha badmashi kartaa rahata hoon!" 
+    </p>
+    <p>
+        Whether I'm hiding your favorite shoes or chasing my tail in circles, I make sure there's never a dull moment! 🐾✨
+    </p>
+<div style="margin-top: 30px; text-align: left; padding: 0 20px;">
+    <h3 style="color: brown;">Milk Preference Level:</h3>
+    
+    <p>Fresh Milk 🥛</p>
+    <div style="background-color: #eee; border-radius: 20px; width: 100%;">
+        <div style="background-color: brown; width: 95%; height: 15px; border-radius: 20px;"></div>
+    </div>
+
+    <p>Cheese 🧀</p>
+    <div style="background-color: #eee; border-radius: 20px; width: 100%;">
+        <div style="background-color: brown; width: 100%; height: 15px; border-radius: 20px;"></div>
+    </div>
+
+    <p>Paneer 🥛🧀</p>
+    <div style="background-color: #eee; border-radius: 20px; width: 100%;">
+        <div style="background-color: brown; width: 85%; height: 15px; border-radius: 20px;"></div>
+    </div>
+</div>
+</div>
+
+<div style="text-align:center; margin-top: 20px;">
+    <button onclick="changeMood()" style="padding: 15px 30px; border-radius: 30px; border: none; background-color: brown; color: white; font-size: 20px; cursor: pointer;">
+        Is Leo being good? 😇
+    </button>
+    <p id="mood-text" style="font-size: 25px; color: brown; margin-top: 10px; font-weight: bold;"></p>
+</div>
+
+<h2 class="gallery-title">Leo's Moments 📸</h2>
+
+<div class="gallery-container">
+    <img src="leo.jpeg" class="gallery-item" alt="Leo 1">
+    <img src="leo2.jpeg" class="gallery-item" alt="Leo Naughty">
+    <img src="leo3.jpeg" class="gallery-item" alt="Leo Eating">
+    <img src="leo4.jpeg" class="gallery-item" alt="Leo Sleeping">
+    <img src="leo5.jpeg" class="gallery-item" alt="Leo Playing">
+    <img src="leo6.jpeg" class="gallery-item" alt="Leo Milk Time">
+    <img src="leo7.jpeg" class="gallery-item" alt="Leo play Time">
+    <img src="leo8.jpeg" class="gallery-item" alt="Leo sleep Time">
+</div>
+<div class="arcade-box">
+    <div class="score-badge">TREATS COLLECTED: <span id="score-val">0</span></div>
+    
+    <div class="status-screen" id="status-msg">
+        > SYSTEM READY: WAITING FOR MILK...
+    </div>
+
+    <div id="happiness-bar-container">
+        <div id="happiness-fill"></div>
+    </div>
+
+    <p style="color: brown; font-weight: bold;">Mission: Stop the Badmashi!</p>
+    
+    <button class="game-btn" onclick="startMilkRain()">
+        START FEEDING 🥛
+    </button>
+</div>
+<footer>
+    <p class="footer-text">Made with <span class="footer-heart">❤️</span> for Leo</p>
+    <p class="footer-text" style="font-size: 14px;">© 2026 Badmash Leo Productions | Milk Lovers Only 🥛</p>
+</footer>
+</body>
+
+</html>
